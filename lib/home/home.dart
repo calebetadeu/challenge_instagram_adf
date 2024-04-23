@@ -1,3 +1,4 @@
+import 'package:challenge_instagram_adf/home/components/Icon_navigation_bar.dart';
 import 'package:flutter/material.dart';
 
 class Home extends StatefulWidget {
@@ -21,32 +22,14 @@ class _HomeState extends State<Home> {
           ),),
         ),
         actions: const [
+       
           Padding(
             padding: EdgeInsets.only(right: 8),
             child: Row(
               children: [
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 10),
-                  child: Icon(
-                    
-                    Icons.add_circle_outline_sharp,
-                    size: 35,
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 10),
-                  child: Icon(
-                    Icons.favorite_border_outlined,
-                    size: 35,
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 10),
-                  child: Icon(
-                    Icons.near_me_outlined,
-                    size: 35,
-                  ),
-                ),
+                IconNavigationBar(icon:  Icons.add_circle_outline_sharp),
+                IconNavigationBar(icon: Icons.favorite_border_outlined),
+                IconNavigationBar(icon: Icons.near_me_outlined)
               ],
             ),
           )
