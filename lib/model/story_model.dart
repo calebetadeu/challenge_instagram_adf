@@ -1,9 +1,7 @@
 class StoryModel {
   String url;
-  bool isLive;
+  final bool isLive;
+  final bool mainUser;
 
-  StoryModel({
-    required this.url,
-    required this.isLive,
-  });
+  StoryModel({required this.url, this.isLive = false, this.mainUser = false});
 }

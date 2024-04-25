@@ -26,6 +26,7 @@ class UserStory extends StatelessWidget {
               return CircleStory(
                 isLive: storyModel[index].isLive,
                 url: storyModel[index].url,
+                mainUser: storyModel[index].mainUser,
               );
             }),
       ),
