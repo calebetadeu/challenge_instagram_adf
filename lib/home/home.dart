@@ -1,7 +1,8 @@
 import 'package:challenge_instagram_adf/home/components/Icon_navigation_bar.dart';
-import 'package:challenge_instagram_adf/home/components/circle_story.dart';
-import 'package:challenge_instagram_adf/home/sectiom/user_story.dart';
+import 'package:challenge_instagram_adf/home/section/storyLine/post_time_line.dart';
+import 'package:challenge_instagram_adf/home/section/user_story.dart';
 import 'package:challenge_instagram_adf/model/story_model.dart';
+import 'package:challenge_instagram_adf/model/time_line_model.dart';
 import 'package:flutter/material.dart';
 
 class Home extends StatefulWidget {
@@ -13,14 +14,49 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   int indice = 0;
+  final List<TimeLineModel> postTimeLine = [
+    TimeLineModel(
+        imagePost:
+            "https://assets.goal.com/images/v3/blt30f6a3538e89d7ea/52142032574_ee2e1c0fa0_o.jpg?auto=webp&format=pjpg&width=3840&quality=60",
+        userImagePost: "https://a.espncdn.com/i/teamlogos/soccer/500/2029.png",
+        likes: "1.500",
+        userName: "palmeiras",
+        numberComents: "30",
+        postDescription:
+            " coração verde pulsando mais forte do que nunca! 💚🐷 Orgulho de vestir as cores que",
+        hoursAgo: "1"),
+    TimeLineModel(
+        imagePost:
+            "https://scinova.com.br/principal/wp-content/uploads/2017/04/florianopolis_cc_ricardoneves-400x267.jpg",
+        userImagePost:
+            "https://img.freepik.com/fotos-gratis/retrato-de-homem-adulto-posando_23-2148729642.jpg",
+        likes: "11.500",
+        userName: "Thiago olman",
+        
+        postDescription: "Cada gota de suor é um passo em direção aos seus objetivos. Não importa quão difícil",
+        numberComents: "300",
+        hoursAgo: "4"),
+    TimeLineModel(
+        imagePost:
+            "https://media.timeout.com/images/105793090/750/562/image.jpg",
+        userImagePost:
+            "https://img3.stockfresh.com/files/g/giulio_fornasar/m/23/7717706_stock-photo-real-people-is-better-portrait-of-a-young-man.jpg",
+        likes: "7.500",
+        postDescription:
+            "Explorando os cantos pitorescos de uma cidade perdida no tempo.",
+        userName: "Daniel Lapost",
+        numberComents: "450",
+        hoursAgo: "4"),
+  ];
   final List<StoryModel> storyModelList = [
-    StoryModel(url: 'https://ef564920920608e03abb-7d34ef097b6ab6c586dfc84157128505.ssl.cf1.rackcdn.com/PostImagem/36734/foto-de-perfil-profissional_o1eh30s23krp31qn41l3havc2fti.JPG', mainUser: true),
+    StoryModel(
+        url:
+            'https://ef564920920608e03abb-7d34ef097b6ab6c586dfc84157128505.ssl.cf1.rackcdn.com/PostImagem/36734/foto-de-perfil-profissional_o1eh30s23krp31qn41l3havc2fti.JPG',
+        mainUser: true),
     StoryModel(
         url:
             'https://i.pinimg.com/originals/4f/73/3b/4f733b83724e86f43c759de191f7e9fc.jpg',
-        isLive: true
-        
-        ),
+        isLive: true),
     StoryModel(
         url:
             'https://st5.depositphotos.com/18273866/65276/i/1600/depositphotos_652763588-stock-photo-one-man-young-adult-caucasian.jpg',
@@ -54,9 +90,8 @@ class _HomeState extends State<Home> {
               padding: EdgeInsets.only(right: 8),
               child: Row(
                 children: [
-                  IconNavigationBar(icon: Icons.add_circle_outline_sharp),
                   IconNavigationBar(icon: Icons.favorite_border_outlined),
-                  IconNavigationBar(icon: Icons.near_me_outlined)
+                  IconNavigationBar(icon: Icons.message_outlined)
                 ],
               ),
             )
@@ -107,14 +142,20 @@ class _HomeState extends State<Home> {
                 label: 'Avatar')
           ],
         ),
-        body: SingleChildScrollView(
-          child: Column(
-            children: [
-              UserStory(
-                storyModel: storyModelList,
-              )
-            ],
-          ),
+        body: CustomScrollView(
+          slivers: [
+            SliverToBoxAdapter(
+              child: UserStory(storyModel: storyModelList),
+            ),
+            SliverList(
+              delegate: SliverChildBuilderDelegate(
+                (context, index) {
+                  return PostTimeLine(timeLine: postTimeLine[index]);
+                },
+                childCount: postTimeLine.length,
+              ),
+            ),
+          ],
         ));
   }
 }
