@@ -1,11 +1,9 @@
 import 'package:challenge_instagram_adf/home/components/Icon_navigation_bar.dart';
-import 'package:challenge_instagram_adf/home/section/bar_option_coments.dart';
-import 'package:challenge_instagram_adf/home/section/post_time_line.dart';
+import 'package:challenge_instagram_adf/home/section/storyLine/post_time_line.dart';
 import 'package:challenge_instagram_adf/home/section/user_story.dart';
 import 'package:challenge_instagram_adf/model/story_model.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:challenge_instagram_adf/model/time_line_model.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -16,6 +14,40 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   int indice = 0;
+  final List<TimeLineModel> postTimeLine = [
+    TimeLineModel(
+        imagePost:
+            "https://assets.goal.com/images/v3/blt30f6a3538e89d7ea/52142032574_ee2e1c0fa0_o.jpg?auto=webp&format=pjpg&width=3840&quality=60",
+        userImagePost: "https://a.espncdn.com/i/teamlogos/soccer/500/2029.png",
+        likes: "1.500",
+        userName: "palmeiras",
+        numberComents: "30",
+        postDescription:
+            " coração verde pulsando mais forte do que nunca! 💚🐷 Orgulho de vestir as cores que",
+        hoursAgo: "1"),
+    TimeLineModel(
+        imagePost:
+            "https://scinova.com.br/principal/wp-content/uploads/2017/04/florianopolis_cc_ricardoneves-400x267.jpg",
+        userImagePost:
+            "https://img.freepik.com/fotos-gratis/retrato-de-homem-adulto-posando_23-2148729642.jpg",
+        likes: "11.500",
+        userName: "Thiago olman",
+        
+        postDescription: "Cada gota de suor é um passo em direção aos seus objetivos. Não importa quão difícil",
+        numberComents: "300",
+        hoursAgo: "4"),
+    TimeLineModel(
+        imagePost:
+            "https://media.timeout.com/images/105793090/750/562/image.jpg",
+        userImagePost:
+            "https://img3.stockfresh.com/files/g/giulio_fornasar/m/23/7717706_stock-photo-real-people-is-better-portrait-of-a-young-man.jpg",
+        likes: "7.500",
+        postDescription:
+            "Explorando os cantos pitorescos de uma cidade perdida no tempo.",
+        userName: "Daniel Lapost",
+        numberComents: "450",
+        hoursAgo: "4"),
+  ];
   final List<StoryModel> storyModelList = [
     StoryModel(
         url:
@@ -110,79 +142,20 @@ class _HomeState extends State<Home> {
                 label: 'Avatar')
           ],
         ),
-        body: SingleChildScrollView(
-          child: Column(
-            children: [
-              UserStory(
-                storyModel: storyModelList,
+        body: CustomScrollView(
+          slivers: [
+            SliverToBoxAdapter(
+              child: UserStory(storyModel: storyModelList),
+            ),
+            SliverList(
+              delegate: SliverChildBuilderDelegate(
+                (context, index) {
+                  return PostTimeLine(timeLine: postTimeLine[index]);
+                },
+                childCount: postTimeLine.length,
               ),
-              const Padding(
-                padding: EdgeInsets.symmetric(vertical: 12.0),
-                child: Column(
-                  children: [
-                    PostTimeLine(),
-                    BarOptionComents(),
-                    Padding(
-                      padding: EdgeInsets.all(8.0),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          SizedBox(
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                Text(
-                                  "1.230",
-                                  style: TextStyle(fontSize: 16),
-                                ),
-                                SizedBox(
-                                  width: 6,
-                                ),
-                                Text(
-                                  "Curtidas",
-                                  style: TextStyle(fontSize: 16),
-                                )
-                              ],
-                            ),
-                          ),
-                          Flexible(
-                            child: Text(
-                              "sportscenter Será que neyar vai ganhar bola de ouro e agora voce pode votar nele ,e aí voce votasria? ",
-                              overflow: TextOverflow.visible,
-                            ),
-                          ),
-                          Align(
-                            alignment: Alignment.centerLeft,
-                            child: Text(
-                              "Ver todos os 8 comentários",
-                              style: TextStyle(fontWeight: FontWeight.w300),
-                            ),
-                          ),
-                          SizedBox(
-                            child: Row(
-                              children: [
-                                Text("Há 2 horas",
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.w300,
-                                        fontSize: 12)),
-                                SizedBox(
-                                  width: 10,
-                                ),
-                                Text(
-                                  "Ver tradução",
-                                  style: TextStyle(fontSize: 12),
-                                )
-                              ],
-                            ),
-                          )
-                        ],
-                      ),
-                    )
-                  ],
-                ),
-              )
-            ],
-          ),
+            ),
+          ],
         ));
   }
 }

@@ -1,7 +1,14 @@
 import 'package:flutter/material.dart';
 
-class PostTimeLine extends StatelessWidget {
-  const PostTimeLine({super.key});
+class ImagePost extends StatelessWidget {
+  final String imagePost;
+  final String userImagePost;
+  final String userNamePost;
+  const ImagePost(
+      {super.key,
+      required this.imagePost,
+      required this.userImagePost,
+      required this.userNamePost});
 
   @override
   Widget build(BuildContext context) {
@@ -10,7 +17,7 @@ class PostTimeLine extends StatelessWidget {
     return Stack(
       children: [
         Image.network(
-          "https://pbs.twimg.com/media/E4IfjCGXoAI3xDQ.jpg:large",
+          imagePost,
           fit: BoxFit.fitHeight,
           height: height / 2,
         ),
@@ -18,10 +25,10 @@ class PostTimeLine extends StatelessWidget {
           height: height / 2,
           width: width,
           //color: Colors.red,
-          child: const Column(
+          child: Column(
             children: [
               Padding(
-                padding: EdgeInsets.all(8.0),
+                padding: const EdgeInsets.all(8.0),
                 child: Row(
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -29,20 +36,23 @@ class PostTimeLine extends StatelessWidget {
                     Row(
                       children: [
                         Padding(
-                          padding: EdgeInsets.only(right: 6),
+                          padding: const EdgeInsets.only(right: 6),
                           child: CircleAvatar(
                             radius: 20,
-                            backgroundImage: NetworkImage(
-                                'https://ef564920920608e03abb-7d34ef097b6ab6c586dfc84157128505.ssl.cf1.rackcdn.com/PostImagem/36734/foto-de-perfil-profissional_o1eh30s23krp31qn41l3havc2fti.JPG'),
+                            backgroundImage: NetworkImage(userImagePost),
                           ),
                         ),
                         Text(
-                          "sportscenterbr",
-                          style: TextStyle(fontSize: 16),
+                          userNamePost,
+                          style: const TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
                         ),
                       ],
                     ),
-                    Icon(Icons.more_vert)
+                    const Icon(Icons.more_vert)
                   ],
                 ),
               )
